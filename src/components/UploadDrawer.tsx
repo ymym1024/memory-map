@@ -443,8 +443,7 @@ export default function UploadDrawer({ open, onClose }: { open: boolean; onClose
       formData.append('latitude', lat || '');
       formData.append('longitude', lng || '');
 
-      const apiUrl = `${import.meta.env.VITE_API_URL}/api/upload`;
-      const response = await fetch(apiUrl, {
+      const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData
       });

@@ -13,7 +13,7 @@ export default function App() {
   // 이미지 목록 불러오기
   const fetchImages = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/images`);
+      const response = await fetch('/api/images');
       if (!response.ok) {
         throw new Error('이미지 목록 불러오기 실패');
       }
