@@ -446,7 +446,7 @@ export default function UploadDrawer({ open, onClose }: { open: boolean; onClose
       formData.append('latitude', lat || '');
       formData.append('longitude', lng || '');
       
-      const response = await fetch(`${API_URL}/api/upload`, {
+      const response = await fetch(`/api/upload`, {
         method: 'POST',
         body: formData
       });
