@@ -17,7 +17,7 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function UploadDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [fileToUpload, setFileToUpload] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string>("/photo1.jpg");
+  const [preview, setPreview] = useState<string>("/photo3.jpg");
   const [name, setName] = useState("");
   const [date, setDate] = useState<string>("");
   const [location, setLocation] = useState<string>("");
@@ -52,11 +52,15 @@ export default function UploadDrawer({ open, onClose }: { open: boolean; onClose
       const data = await response.json();
       console.log('주소 조회 결과:', data);
       
-      if (data.display_name) {
-        // 한국어 주소 우선, 없으면 영어 주소 사용
-        return data.display_name;
+      if (data.address){
+        const country = data.address.country;
+        const city = data.address.city;
+        const district = data.address.borough?data.address.borough : (data.address.city_district?data.address.city_district : data.address.town);
+        const suburb = data.address.suburb?data.address.suburb : (data.address.quarter?data.address.quarter : data.address.road);
+
+        return country+", "+city+", "+district+", "+suburb
       } else {
-        return `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+        return data.display_name;
       }
     } catch (error) {
       console.error('주소 조회 실패:', error);
