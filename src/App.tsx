@@ -10,12 +10,10 @@ export default function App() {
   const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [mapZoom, setMapZoom] = useState(12);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
   // 이미지 목록 불러오기
   const fetchImages = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/images`);
+      const response = await fetch('/api/images');
       if (!response.ok) {
         throw new Error('이미지 목록 불러오기 실패');
       }

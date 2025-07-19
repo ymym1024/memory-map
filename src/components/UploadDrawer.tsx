@@ -13,8 +13,6 @@ interface ExtractedMetadata {
   [key: string]: any;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
 export default function UploadDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [fileToUpload, setFileToUpload] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("/photo3.jpg");
@@ -446,7 +444,7 @@ export default function UploadDrawer({ open, onClose }: { open: boolean; onClose
       formData.append('latitude', lat || '');
       formData.append('longitude', lng || '');
       
-      const response = await fetch(`/api/upload`, {
+      const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData
       });
