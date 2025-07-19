@@ -435,7 +435,6 @@ export default function UploadDrawer({ open, onClose }: { open: boolean; onClose
   const uploadToAPI = async (file: File, imageName: string, dateTime: string, location: string, lat: string, lng: string) => {
     try {
       setUploadStatus("업로드 중...");
-      
       const formData = new FormData();
       formData.append('file', file);
       formData.append('name', imageName || file.name);
@@ -443,22 +442,23 @@ export default function UploadDrawer({ open, onClose }: { open: boolean; onClose
       formData.append('location', location || '');
       formData.append('latitude', lat || '');
       formData.append('longitude', lng || '');
-      
-      const response = await fetch('/api/upload', {
+
+      const apiUrl = `${import.meta.env.VITE_API_URL}/api/upload`;
+      const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
       console.log('API 업로드 완료:', result);
-      
+
       setUploadStatus("업로드 완료!");
       return true;
-      
+
     } catch (error) {
       console.error('API 업로드 실패:', error);
       setUploadStatus("업로드 실패");
